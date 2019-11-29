@@ -57,6 +57,7 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: 3.7
+      - run: pip install wheel
       - name: Build packages
         run: python setup.py sdist bdist_wheel
       - name: Publish to PyPI
