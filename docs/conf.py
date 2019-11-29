@@ -14,7 +14,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-import wpilib.kinematics
+import pkg_resources
 
 # -- Project information -----------------------------------------------------
 
@@ -23,7 +23,7 @@ copyright = "2019, FIRST and David Vo"
 author = "David Vo"
 
 # The full version, including alpha/beta/rc tags
-release = wpilib.kinematics.__version__
+release = pkg_resources.get_distribution("wpilib.kinematics").version
 
 # -- General configuration ---------------------------------------------------
 
