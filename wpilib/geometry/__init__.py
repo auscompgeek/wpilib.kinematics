@@ -142,10 +142,11 @@ class Pose2d:
         "Exp" represents the pose exponential, which is solving a
         differential equation moving the pose forward in time.
 
-        :param twist: The change in pose in the robot's coordinate frame since the
-             previous pose update. For example, if a non-holonomic robot moves forward
-             0.01 meters and changes angle by 0.5 degrees since the previous pose update,
-             the twist would be ``Twist2d(0.01, 0.0, math.radians(0.5))``
+        :param twist: The change in pose in the robot's coordinate frame
+             since the previous pose update. For example, if a
+             non-holonomic robot moves forward 0.01 meters and changes
+             angle by 0.5 degrees since the previous pose update, the
+             twist would be ``Twist2d(0.01, 0.0, math.radians(0.5))``
 
         :returns: The new pose of the robot.
         """

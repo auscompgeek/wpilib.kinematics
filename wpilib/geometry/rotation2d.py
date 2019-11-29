@@ -22,7 +22,7 @@ class Rotation2d:
 
     @overload
     def __init__(self, __x: float, __y: float):
-        """Constructs a Rotation2d with the given x and y (cosine and sine) components.
+        """Constructs a Rotation2d with the given cosine and sine components.
 
         The x and y don't have to be normalised.
         """
@@ -78,7 +78,7 @@ class Rotation2d:
         return f"Rotation2d({self.value})"
 
     def __add__(self, other: "Rotation2d") -> "Rotation2d":
-        """Adds two rotations together, with the result being bounded between -pi and pi."""
+        """Adds two rotations together, with the result bounded between -pi and pi."""
         if not isinstance(other, Rotation2d):
             return NotImplemented
         cos_a = self.cos

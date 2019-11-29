@@ -139,8 +139,8 @@ class SwerveDriveKinematics:
         ]
 
     def toChassisSpeeds(self, *wheel_states: SwerveModuleState) -> ChassisSpeeds:
-        """Performs forward kinematics to return the resulting chassis state from the
-        given module states.
+        """Performs forward kinematics to return the resulting chassis state
+        from the given module states.
 
         This method is often used for odometry -- determining the robot's
         position on the field using data from the real-world speed and
@@ -148,15 +148,15 @@ class SwerveDriveKinematics:
 
         :param wheel_states: The state of the modules (as a SwerveModuleState type)
                              as measured from respective encoders and gyros.
-                             The order of the swerve module states should be same
-                             as passed into the constructor of this class.
+                             The order of the swerve module states should be
+                             same as passed into the constructor of this class.
 
         :returns: The resulting chassis speed.
         """
         num_modules = self.num_modules
         assert (
             len(wheel_states) == num_modules
-        ), "Number of modules must be consistent with number of wheel locations provided in constructor."
+        ), "Number of modules must be consistent with number of wheel locations."
         module_states_mat = np.array(
             [
                 (module.speed * module.angle.cos, module.speed * module.angle.sin)
@@ -251,8 +251,8 @@ class SwerveDriveOdometry:
         gyroAngle: Rotation2d,
         *module_states: SwerveModuleState,
     ) -> Pose2d:
-        """Updates the robot's position on the field using forward kinematics and
-        integration of the pose over time.
+        """Updates the robot's position on the field using forward kinematics
+        and integration of the pose over time.
 
         This method takes in the current time as a parameter to calculate
         period (difference between two timestamps). The period is used
