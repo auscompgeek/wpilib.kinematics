@@ -1,2 +1,6 @@
 [run]
 branch = True
+include =
+	tests/*
+	*/wpilib/geometry/*
+	*/wpilib/kinematics/*
