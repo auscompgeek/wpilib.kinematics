@@ -1,0 +1,63 @@
+---
+name: CI
+on: [push]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Lint with flake8
+        run: |
+          pip install flake8 flake8-bugbear
+          # TODO: remove F811 ignore when pyflakes release fixes @typing.overload
+          flake8 . --count --select=E9,F,B,B9 --ignore=F811 --show-source --statistics
+      - name: Check formatting with black
+        run: |
+          pip install black
+          black --check --diff .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version:
+          - 3.6
+          - 3.7
+          - 3.8
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install . pytest-cov
+      - run: python -m pytest --cov
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [check, test]
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Build packages
+        run: python setup.py sdist bdist_wheel
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.0.0a0
+        with:
+          user: __token__
+          password: ${{ secrets.pypi_password }}
