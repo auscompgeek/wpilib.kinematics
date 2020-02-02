@@ -3,6 +3,11 @@ Installation
 
 For local development on a computer with an internet connection:
 
+.. warning::
+
+   It is anticipated that RobotPy WPILib will have these classes in the 2020.2.2 update.
+   This package will conflict with such an update, and *must* be uninstalled before updating.
+
 .. code-block:: bash
 
    pip install wpilib.kinematics
